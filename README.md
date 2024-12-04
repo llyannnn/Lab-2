@@ -235,25 +235,6 @@ public class Main {
         }
     }
 
-    // Подсчет числа "островков" (групп соседних true)
-    private static int countIslands(boolean[][] array) {
-        int islands = 0; // Счётчик блоков
-        for (boolean[] row : array) { // Проходим по каждой строке
-            boolean inIsland = false; // Флаг, обозначающий, находимся ли мы внутри блока true
-            for (boolean value : row) { // Проверяем каждое значение в строке
-                if (value) {
-                    if (!inIsland) { // Начало нового блока true
-                        islands++;
-                        inIsland = true; // Устанавливаем флаг
-                    }
-                } else {
-                    inIsland = false; // Конец блока
-                }
-            }
-        }
-        return islands;
-    }
-
     // Проверка симметрии относительно главной диагонали
     private static boolean isSymmetric(boolean[][] array) {
         int n = array.length;
