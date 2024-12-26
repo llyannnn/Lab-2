@@ -128,15 +128,15 @@
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        
+
         Scanner scanner = new Scanner(System.in);
         // 1. Ввод данных
         // Запрашиваем размеры массива у пользователя
         System.out.println("Введите размеры массива (N M):");
         int n = scanner.nextInt(); // Количество строк
         int m = scanner.nextInt(); // Количество столбцов
-        
-        
+
+
         // Инициализируем двумерный массив boolean
         boolean[][] array = new boolean[n][m];
 
@@ -148,24 +148,26 @@ public class Main {
                 array[i][j] = scanner.nextBoolean();
             }
         }
-
-        // 2. Сортировка строк массива по возрастанию количества true и по длине самой длинной последовательности true
+        
+        // 2. Сортировка строк массива пузырьковым методом
         for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
-                int countTrueI = countTrue(array[i]);
-                int countTrueJ = countTrue(array[j]);
-                int maxTrueI = maxTrue(array[i]);
-                int maxTrueJ = maxTrue(array[j]);
+            for (int j = 0; j < n - 1 - i; j++) {
+                int countTrueCurrent = countTrue(array[j]);
+                int countTrueNext = countTrue(array[j + 1]);
+                int maxTrueCurrent = maxTrue(array[j]);
+                int maxTrueNext = maxTrue(array[j + 1]);
 
                 // Сравниваем сначала по количеству true, затем по максимальной длине последовательности true
-                if (countTrueI > countTrueJ || (countTrueI == countTrueJ && maxTrueI > maxTrueJ)) {
+                if (countTrueCurrent > countTrueNext ||
+                        (countTrueCurrent == countTrueNext && maxTrueCurrent > maxTrueNext)) {
                     // Меняем местами строки
-                    boolean[] b = array[i];
-                    array[i] = array[j];
-                    array[j] = b;
+                    boolean[] temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
                 }
             }
         }
+
 
         // 3. Нахождение строки с максимальным количеством последовательных true
         int maxIndex = 0; // Индекс строки с максимальной последовательностью
